@@ -1,8 +1,8 @@
-var valueTotal = [0,0];
+var valueTotal = [0, 0];
 var valueProduct = [50.00, 30.00];
-var qtd = [0,0];
+var qtd = [0, 0];
 
-function addItem(item){
+function addItem(item) {
 
     var quantity = document.getElementById('quantity' + item);
     var total = document.getElementById('total' + item);
@@ -10,5 +10,17 @@ function addItem(item){
     valueTotal[item] = Number.parseFloat(valueProduct[item]) * qtd[item];
     quantity.innerHTML = qtd[item];
     total.innerHTML = valueTotal[item].toFixed(2);
+
+}
+
+function removeItem(item) {
+    if (qtd[item] > 0) {
+        var quantity = document.getElementById('quantity' + item);
+        var total = document.getElementById('total' + item);
+        qtd[item] -= 1;
+        valueTotal[item] = Number.parseFloat(valueProduct[item]) * qtd[item];
+        quantity.innerHTML = qtd[item];
+        total.innerHTML = valueTotal[item].toFixed(2);
+    }
 
 }
