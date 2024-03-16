@@ -39,7 +39,10 @@ function atualizarCarrinho(){
     let cartHtml = document.getElementById('cart')
 
     carrinho.forEach((produto,index)=>{
-        `<div id='product${index}' class='d-flex flex-row justify-content-between align-items-center pt-lg-12 pt-md-12 pt-2 pb-3 border-botton mobile'>
+
+        cartHtml.innerHTML +=
+
+        `<div id='product${index}' class='d-flex flex-row justify-content-between align-items-center pt-lg-12 pt-md-12 pt-2 pb-3 border-bottom mobile'>
             <div class= 'd-flex flex-row align-items-center'>
                 <div>
                     <img
@@ -55,18 +58,18 @@ function atualizarCarrinho(){
             </div>
             <div class='pl-md-2 pl-1'><b>${produto.preco}</b></div>
             <div class='pl-md-3 pl-2'>
-                <span class='fa fa-minus-square text-secondary' onclick='removeItem($index)'></span>
+                <span class='fa fa-minus-square text-secondary' onclick='removeItem(${index})'></span>
                 <span class='px-md-3 px-1' id='quantidade${index}'>
                     ${produto.quantidade}
                 </span>
 
-                <span class='fa fa-plus-square text-secondary' onclick='adicionarItem($index)'></span>
+                <span class='fa fa-plus-square text-secondary' onclick='adicionarItem(${index})'></span>
             </div>
             <div class='pl-md-0 pl-1'>
-                <b>R$ <span id='total${index}'>0.0</span></b>
+                <b>R$ <span id='total${index}'>0</span></b>
             </div>
 
-            <div class='close' onclick='removeProduto(${index})'></div>
+            <div class='close' onclick='removeProduto(${index})'>&times;</div>
         </div>`
     });
 }
@@ -111,4 +114,15 @@ function atualizaSubtotal(){
         subtotal+= produto.quantidade * produto.preço
     });
     totalCompra.innerHTML = subtotal.toFixed(2)
+}
+
+function removeProduto(item){
+    let carrinhoHtml = document.getElementById('cart')
+    let produto = document.getElementById('produto'+item)
+
+    if(confirm("Voce tem certeza que deseja excluir o produto ?")){
+        carrinho[item].quantidade = 0;
+        atualizaSubtotal()
+        carrinhoHtml.removeChild(produto)
+    };
 }
