@@ -76,6 +76,7 @@ function adicionarItem(item){
     let produto = carrinho[item];
     produto.quantidade += 1;
     qtd.innerHTML = produto.quantidade;
+    atualizaNumerosTela(qtd,innerHTML)
 }
 
 function removeItem(item){
@@ -84,5 +85,30 @@ function removeItem(item){
     if(produto.quantidade > 0){
         produto.quantidade -= 1;
         qtd.innerHTML = produto.quantidade;
+        atualizaNumerosTela(qtd,item);
     }
+}
+
+function atualizaNumerosTela(qtd, item){
+    qtd.innerHTML = carrinho[item].quantidade
+    atualizaTotalProduto(item)
+    atualizaSubtotal()
+}
+
+function atualizaTotalProduto(item){
+    let total = document.getElementById('total'+ item)
+    let produto = carrinho[item];
+    produto.total = Number.parseFloat(
+        produto.quantidade * produto.preco
+    )
+    total.innerHTML = produto.total.toFixed(2);
+}
+
+function atualizaSubtotal(){
+    let totalCompra = document.getElementById('valorTotalCompra')
+    let subtotal = 0;
+    carrinho.forEach(produto => {
+        subtotal+= produto.quantidade * produto.preço
+    });
+    totalCompra.innerHTML = subtotal.toFixed(2)
 }
