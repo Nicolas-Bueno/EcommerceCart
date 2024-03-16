@@ -77,4 +77,12 @@ function adicionarItem(item){
     produto.quantidade += 1;
     qtd.innerHTML = produto.quantidade;
 }
-// 32:42 aula 04/04 
+
+function removeItem(item){
+    let qtd = document.getElementById('quantidade'+item)
+    let produto = carrinho[item];
+    if(produto.quantidade > 0){
+        produto.quantidade -= 1;
+        qtd.innerHTML = produto.quantidade;
+    }
+}
